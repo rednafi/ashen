@@ -9,24 +9,24 @@ client = Client("addressIndex")
 # )
 
 # Indexing a document
-client.add_document(
-    "doc3",
-    addressId=1,
-    addressTitle="mohammadpur",
-    addressBody="1/4 shahjahan road,navana delphinium,flat 3b,mohammedpur,dhaka",
-)
+# client.add_document(
+#     "doc3",
+#     addressId=1,
+#     addressTitle="mohammadpur",
+#     addressBody="1/4 shahjahan road,navana delphinium,flat 3b,mohammedpur,dhaka",
+# )
 
 # Simple search
-res = client.search("1/4 shahjahan road,navana delphinium,flat 3b,mohammedpur,dhaka")
+#res = client.search("dhaka")
 
 # Searching with snippets
 #res = client.search("search engine")
 
 # Searching with complext parameters:
-# q = Query("search engine").verbatim().no_content().with_scores().paging(0, 5)
-# res = client.search(q)
+q = Query('@address|addressBody:motijheel',).with_scores().highlight()
+res = client.search(q)
 
 
 # the result has the total number of results, and a list of documents
 print(res.total)  # "1"
-print(res.docs[0])
+print(res.docs[1])

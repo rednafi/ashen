@@ -1,0 +1,22 @@
+version: "3.7"
+services:
+  redisearch:
+    container_name: redisearch
+    image: redislabs/redisearch
+    environment:
+      # make a test user and database
+      - REDIS_PASSWORD=password
+    ports:
+      - 6379:6379
+    volumes:
+    # save redisearch data to your current working directory
+      - $PWD/redisearch-data:/data
+
+    command:
+      - "--loadmodule /usr/lib/redis/modules/redisearch.so"
+      - "--save 10 100"
+
+
+
+volumes:
+  redisearch-data:
