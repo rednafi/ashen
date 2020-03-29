@@ -1,7 +1,8 @@
-from redisearch import Client, TextField, Query, NumericField
-from redis.exceptions import ResponseError, DataError
-from typing import Sequence, Mapping
+from typing import Mapping, Sequence
+
 import pandas as pd
+from redis.exceptions import DataError, ResponseError
+from redisearch import Client, NumericField, Query, TextField
 
 
 class IndexData:
@@ -70,18 +71,10 @@ class IndexData:
 client = Client("addressIndex")
 index = IndexData(client)
 index.create_index(
-    [NumericField("index"), NumericField("areaId"), TextField("areaTitle"), TextField("areaBody")]
+    [
+        NumericField("index"),
+        NumericField("areaId"),
+        TextField("areaTitle"),
+        TextField("areaBody"),
+    ]
 )
-
-
-# from tqdm import tqdm
-
-# for i in tqdm(range(10, 600)):
-#     add_document(
-#         f"{i}",
-#         {
-#             "addressId": i,
-#             "address": f"motijheel{i}",
-#             "addressBody": f"Motijheel, daka 1209{i}",
-#         },
-#     )

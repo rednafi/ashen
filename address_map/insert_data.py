@@ -1,6 +1,7 @@
 import pandas as pd
-from address_map.index_data import index
 from tqdm import tqdm
+
+from address_map.index_data import index
 
 
 class InsertData:
@@ -20,5 +21,6 @@ class InsertData:
             index.add_document(doc_id=row["index"], doc=row)
 
 
-obj = InsertData("./data/address.csv")
-obj.insert_data()
+if __name__ == "__main__":
+    obj = InsertData("./data/address.csv")
+    obj.insert_data()
