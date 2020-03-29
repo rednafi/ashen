@@ -1,6 +1,14 @@
 # address2id
 Mapping fuzzy address string to id
 
+## Stack
+* Redis
+* Redisearch
+* Pandas
+* Flask
+* Docker
+
+
 ## Directory Structure
 ```
 .
@@ -25,7 +33,10 @@ Mapping fuzzy address string to id
 * Run the container via:
     `docker-compose up -d`
 * Check the backup configs defined in the `docker-compose.yml` via:
-    `docker exec -it redisearch redis-cli -a password config get save`
+
+    ```bash
+    docker exec -it redisearch redis-cli -a password config get save
+    ```
 
 ### Prepare Python Environment
 * Prepare python environment via (you might need to install `python3.8 venv`):
