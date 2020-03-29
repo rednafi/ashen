@@ -1,7 +1,23 @@
 # address2id
 Mapping fuzzy address string to id
 
-##
+## Directory Structure
+```
+.
+├── address_map             [primary module]
+│   ├── index_data.py       [create redis index]
+│   ├── __init__.py
+│   ├── insert_data.py      [insert data from csv]
+│   ├── search_data.py      [run query]
+│   └── utils.py
+├── data
+│   └── address.csv
+├── docker-compose.yml
+├── LICENSE
+├── README.md
+└── redisearch-data         [redis persistent backup]
+    └── dump.rdb
+```
 
 ## Development
 
@@ -33,4 +49,10 @@ Mapping fuzzy address string to id
 * From the root folder run:
     ```bash
     python -m address_map.insert_data
+    ```
+
+### Run Query
+* From the root folder run,
+    ```python
+    python -m address_map.search_data
     ```
