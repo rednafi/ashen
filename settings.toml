@@ -1,0 +1,5 @@
+[development]
+flask = { port = 5000 }
+
+[production]
+flask = { port = 4000 }

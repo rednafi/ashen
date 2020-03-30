@@ -1,7 +1,7 @@
 import pandas as pd
 from tqdm import tqdm
 
-from address_map.index_data import index
+from index.index_data import index
 
 
 class InsertData:

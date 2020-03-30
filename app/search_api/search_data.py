@@ -3,8 +3,8 @@ from typing import List
 
 from redisearch import Query
 
-from address_map.index_data import client
-from address_map.utils import clean_term
+from index.index_data import client
+from app.search_api.utils import clean_term
 
 
 class PerformQuery:
