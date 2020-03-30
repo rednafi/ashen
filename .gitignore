@@ -1,10 +1,7 @@
-*
-*/
-!.gitignore
 
 # custom
 redisearch-data/dump.rdb
-data/*
+data/area.csv
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
