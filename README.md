@@ -12,19 +12,29 @@ Mapping fuzzy address string to id
 ## Directory Structure
 ```
 .
-├── address_map             [primary module]
-│   ├── index_data.py       [create redis index]
+├── app                         [flask api]
 │   ├── __init__.py
-│   ├── insert_data.py      [insert data from csv]
-│   ├── search_data.py      [run query]
-│   └── utils.py
-├── data
-│   └── address.csv
+│   └── search_api
+│       ├── __init__.py
+│       ├── search_data.py
+│       ├── utils.py
+│       └── views.py
+├── data                        [Index csv data]
+│   ├── area.csv
+│   └── placeholder-area.csv
 ├── docker-compose.yml
+├── flask_run.py                [flask executor]
+├── index
+│   ├── index_data.py
+│   ├── __init__.py
+│   └── insert_data.py
 ├── LICENSE
 ├── README.md
-└── redisearch-data         [redis persistent backup]
-    └── dump.rdb
+├── redisearch-data             [redisearch backup]
+│   ├── dump.rdb
+│   └── placeholder.rdb
+├── requirements.txt
+└── settings.toml               [central configs]
 ```
 
 ## Development
@@ -51,7 +61,8 @@ Mapping fuzzy address string to id
     ```
 
 ### Index Data
-* To index new data, add the data in csv format in `./data` folder
+* To index new data, add the data in `area.csv` format to `./data` folder. Look into the `placeholder-area.csv` file to see the data format.
+
 * Data must look like this:
     ```csv
     index | areaId | areaTile | areaBody
@@ -59,7 +70,7 @@ Mapping fuzzy address string to id
 
 * From the root folder run:
     ```bash
-    python -m address_map.insert_data
+    python -m index.insert_data
     ```
 
 ### Run Query

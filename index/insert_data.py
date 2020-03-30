@@ -22,5 +22,5 @@ class InsertData:
 
 
 if __name__ == "__main__":
-    obj = InsertData("./data/address.csv")
+    obj = InsertData("./data/area.csv")
     obj.insert_data()
