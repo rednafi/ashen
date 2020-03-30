@@ -3,6 +3,10 @@ from typing import Mapping, Sequence
 import pandas as pd
 from redis.exceptions import DataError, ResponseError
 from redisearch import Client, NumericField, Query, TextField
+import os
+from dotenv import load_dotenv
+
+load_dotenv(verbose=True)
 
 
 class IndexData:
@@ -67,8 +71,14 @@ class IndexData:
 
 
 # Creating a client with a given index name
+if os.environ.get("ENVIRONMENT") == "development":
+    client = Client(
+        "addressIndex", host=os.environ.get("DEVELOPMENT_HOST", "localhost")
+    )
+else:
+    client = Client("addressIndex", host=os.environ.get("PRODUCTION_HOST"))
 
-client = Client("addressIndex")
+
 index = IndexData(client)
 index.create_index(
     [

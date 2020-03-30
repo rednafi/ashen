@@ -11,5 +11,3 @@ application = create_app()
 if os.environ.get("ENVIRONMENT") == "development":
     application.run(host="0.0.0.0", port=5000, debug=True)
 
-
-print(os.environ.get("ENVIRONMENT"))
