@@ -16,5 +16,15 @@ services:
       - "--loadmodule /usr/lib/redis/modules/redisearch.so"
       - "--save 10 100"
 
+  app:
+    container_name: searchapp
+    build:
+      context: "./"
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redisearch
+
 volumes:
   redisearch-data:
