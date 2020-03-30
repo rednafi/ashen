@@ -1,6 +1,6 @@
 # custom
-/redisearch-data/dump.rdb
-/data/*
+redisearch-data/dump.rdb
+data/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
