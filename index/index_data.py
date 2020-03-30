@@ -88,3 +88,4 @@ index.create_index(
         TextField("areaBody"),
     ]
 )
+

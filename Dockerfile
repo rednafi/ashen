@@ -12,7 +12,7 @@ ENV FLASK_APP flask_run.py
 
 RUN pip install -r requirements.txt
 
-EXPOSE 4000
+EXPOSE 5000
 
 COPY . /app
 
