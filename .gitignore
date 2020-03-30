@@ -1,3 +1,7 @@
+*
+*/
+!.gitignore
+
 # custom
 redisearch-data/dump.rdb
 data/*
