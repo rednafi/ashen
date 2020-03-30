@@ -71,12 +71,8 @@ class IndexData:
 
 
 # Creating a client with a given index name
-if os.environ.get("ENVIRONMENT") == "development":
-    client = Client(
-        "addressIndex", host=os.environ.get("DEVELOPMENT_HOST", "localhost")
-    )
-else:
-    client = Client("addressIndex", host=os.environ.get("PRODUCTION_HOST"))
+
+client = Client("addressIndex", host=os.environ.get("HOST"))
 
 
 index = IndexData(client)
@@ -88,4 +84,3 @@ index.create_index(
         TextField("areaBody"),
     ]
 )
-
