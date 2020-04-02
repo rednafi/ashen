@@ -23,12 +23,10 @@ def get_main_func():
         d = obj.verdict()
         return jsonify(d), 200
 
-    except KeyError as e:
-        print(e)
-        d = {"a": "1", "b": None, "c": None}
+    except KeyError:
+        d = {"mathcedArea": [], "verdictArea": None, "verdictAreaId": None}
         return jsonify(d), 400
 
-    except Exception as e:
-        print(e)
-        d = {"a": "1", "b": None, "c": None}
+    except Exception:
+        d = {"mathcedArea": [], "verdictArea": None, "verdictAreaId": None}
         return jsonify(d)
