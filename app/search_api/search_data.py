@@ -3,7 +3,7 @@ from typing import List
 
 from redisearch import Query
 
-from index.index_data import client
+from index.index_data import make_client
 from app.search_api.utils import clean_term
 
 
@@ -12,6 +12,7 @@ class PerformQuery:
 
     def __init__(self, raw_search_term):
         self.raw_search_term = raw_search_term
+        self.client = make_client()
 
     def _clean_query(self):
         return clean_term(self.raw_search_term, "|", add_fuzzy=True)
@@ -24,7 +25,7 @@ class PerformQuery:
 
     def _perform_query(self):
         q = Query(self._prepare_query()).with_scores()
-        res = client.search(q)
+        res = self.client.search(q)
         return res
 
     def _format_result(self):

@@ -4,10 +4,15 @@ import pandas as pd
 from redis.exceptions import DataError, ResponseError
 from redisearch import Client, NumericField, Query, TextField
 from dynaconf import settings
+from index.utils import retry
 
 
-# Creating a client with a given index name
-client = Client("areaIndex", host=settings.HOST)
+@retry(Exception, try_count=5, delay=5)
+def make_client():
+    # Creating a client with a given index name
+    client = Client("areaIndex", host=settings.HOST)
+
+    return client
 
 
 class IndexData:
@@ -73,7 +78,7 @@ class IndexData:
 
 def make_index():
     """Make index using IndexData class."""
-
+    client = make_client()
     index = IndexData(client)
     index.create_index(
         [

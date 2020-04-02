@@ -1,6 +1,7 @@
 
 # custom
 redisearch-data/dump.rdb
+redisearch-data/temp-1.rdb
 index-data/area.csv
 
 # Byte-compiled / optimized / DLL files
