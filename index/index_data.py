@@ -1,9 +1,10 @@
 from typing import Mapping, Sequence
 
 import pandas as pd
+from dynaconf import settings
 from redis.exceptions import DataError, ResponseError
 from redisearch import Client, NumericField, Query, TextField
-from dynaconf import settings
+
 from index.utils import retry
 
 

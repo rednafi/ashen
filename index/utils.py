@@ -1,51 +1,72 @@
-from functools import partial, wraps
-import time
 import logging
+import time
+from functools import partial, wraps
 
-logging.getLogger(__name__)
 
+def retry(func=None, exception=Exception, n_tries=5, delay=5, backoff=1, logger=False):
+    """Retry decorator with exponential backoff.
 
-def retry(check_exception, try_count=5, delay=5, backoff=1, logger=None):
-    """Retry calling the decorated function using an exponential backoff.
+    Parameters
+    ----------
+    func : typing.Callable, optional
+        Callable on which the decorator is applied, by default None
+    exception : Exception or tuple of Exceptions, optional
+        Exception(s) that invoke retry, by default Exception
+    n_tries : int, optional
+        Number of tries before giving up, by default 5
+    delay : int, optional
+        Initial delay between retries in seconds, by default 5
+    backoff : int, optional
+        Backoff multiplier e.g. value of 2 will double the delay, by default 1
+    logger : bool, optional
+        Option to log or print, by default False
 
-    http://www.saltycrane.com/blog/2009/11/trying-out-retry-decorator-python/
-    original from: http://wiki.python.org/moin/PythonDecoratorLibrary#Retry
+    Returns
+    -------
+    typing.Callable
+        Decorated callable that calls itself when exception(s) occur.
 
-    :param check_exception: the exception to check. may be a tuple of
-        exceptions to check
-    :type check_exception: Exception or tuple
-    :param try_count: number of times to try (not retry) before giving up
-    :type try_count: int
-    :param delay: initial delay between retries in seconds
-    :type delay: int
-    :param backoff: backoff multiplier e.g. value of 2 will double the delay
-        each retry
-    :type backoff: int
-    :param logger: logger to use. If None, print
-    :type logger: logging.Logger instance
+    Examples
+    --------
+    >>> import random
+
+    >>> @retry(Exception, n_tries=4)
+    ... def test_random(text):
+    ...    x = random.random()
+    ...    if x < 0.5:
+    ...        raise Exception("Fail")
+    ...    else:
+    ...        print("Success: ", text)
+
+    >>> test_random("It works!")
     """
 
-    def deco_retry(f):
-        @wraps(f)
-        def f_retry(*args, **kwargs):
-            mtries, mdelay = try_count, delay
-            while mtries > 1:
-                try:
-                    return f(*args, **kwargs)
-                except check_exception as e:
-                    msg = "%s, Retrying in %d seconds..." % (str(e), mdelay)
+    if func is None:
+        return partial(
+            retry,
+            which_exception=exception,
+            try_count=n_tries,
+            delay=delay,
+            backoff=backoff,
+            logger=logger,
+        )
 
-                    if logger:
-                        logging.warning(msg)
-                    else:
-                        print(msg)
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        ntries, ndelay = n_tries, delay
 
-                    time.sleep(mdelay)
-                    mtries -= 1
-                    mdelay *= backoff
-            return f(*args, **kwargs)
-
-        return f_retry  # true decorator
-
-    return deco_retry
-
+        while ntries > 1:
+            try:
+                return func(*args, **kwargs)
+            except exception as e:
+                msg = f"{str(e)}, Retrying in {ndelay} seconds..."
+                if logger:
+                    logging.warning(msg)
+                else:
+                    print(msg)
+                time.sleep(ndelay)
+                ntries -= 1
+                ndelay *= backoff
+                
+        return func(*args, **kwargs)
+    return wrapper
