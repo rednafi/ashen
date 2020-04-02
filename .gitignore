@@ -1,7 +1,8 @@
 
 # custom
 redisearch-data/dump.rdb
-data/area.csv
+index-data/area.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -77,7 +77,7 @@ class PerformVerdict(PerformQuery):
             verdict_area_id = None
 
         d = {
-            "matchedArea": result,
+            "matchedArea": result[:3],
             "verdictArea": verdict_area,
             "verdictAreaId": verdict_area_id,
         }

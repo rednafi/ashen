@@ -16,8 +16,16 @@ services:
       - "--loadmodule /usr/lib/redis/modules/redisearch.so"
       - "--save 10 100"
 
+  redisinsight:
+    container_name: redis-insight
+    image: redislabs/redisinsight
+    ports:
+      - 8001:8001
+    volumes:
+      - redisinsight:/db
+
   app:
-    container_name: searchapp
+    container_name: search-app
     build:
       context: "./"
       dockerfile: Dockerfile
@@ -28,3 +36,4 @@ services:
 
 volumes:
   redisearch-data:
+  redisinsight:

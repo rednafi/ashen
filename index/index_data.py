@@ -3,10 +3,11 @@ from typing import Mapping, Sequence
 import pandas as pd
 from redis.exceptions import DataError, ResponseError
 from redisearch import Client, NumericField, Query, TextField
-import os
-from dotenv import load_dotenv
+from dynaconf import settings
 
-load_dotenv(verbose=True)
+
+# Creating a client with a given index name
+client = Client("areaIndex", host=settings.HOST)
 
 
 class IndexData:
@@ -70,17 +71,17 @@ class IndexData:
         return self.client.info()
 
 
-# Creating a client with a given index name
+def make_index():
+    """Make index using IndexData class."""
 
-client = Client("addressIndex", host=os.environ.get("HOST"))
+    index = IndexData(client)
+    index.create_index(
+        [
+            NumericField("index"),
+            NumericField("areaId"),
+            TextField("areaTitle"),
+            TextField("areaBody"),
+        ]
+    )
 
-
-index = IndexData(client)
-index.create_index(
-    [
-        NumericField("index"),
-        NumericField("areaId"),
-        TextField("areaTitle"),
-        TextField("areaBody"),
-    ]
-)
+    return index

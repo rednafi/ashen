@@ -1,6 +1,6 @@
 # Environment file
 # data
-data/
+index-data/
 redisearch-data/
 
 # Git

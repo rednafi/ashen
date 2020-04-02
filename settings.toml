@@ -1,0 +1,14 @@
+[global]
+flask_config = { port = 5000 }
+
+[production]
+environment = "production"
+gunicorn = true
+host = "10.148.0.10"
+
+[development]
+environment = "development"
+
+# if you are running without gunicorn, make this false
+gunicorn = true
+host = "192.168.1.102"
