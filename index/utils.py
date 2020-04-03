@@ -67,6 +67,7 @@ def retry(func=None, exception=Exception, n_tries=5, delay=5, backoff=1, logger=
                 time.sleep(ndelay)
                 ntries -= 1
                 ndelay *= backoff
-                
+
         return func(*args, **kwargs)
+
     return wrapper

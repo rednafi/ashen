@@ -1,9 +1,10 @@
-# address2id
-Mapping fuzzy address string to id
+# Area Search Engine
+Cross language area search from fuzzy descriptions
 
 ## Stack
 * Redis
 * Redisearch
+* RedisInsight
 * Pandas
 * Flask
 * Docker
@@ -64,11 +65,14 @@ Mapping fuzzy address string to id
     ```
 
 ### Index Data
-* To index new data, add the data in `area.csv` format to `./data` folder. Look into the `placeholder-area.csv` file to see the data format.
+* To index new data, add the data in `area.csv` format to `./index-data` folder. Look into the `placeholder-area.csv` file to see the data format.
 
 * Data must look like this:
     ```csv
-    index | areaId | areaTile | areaBody
+    index, areaId, areaTile, areaBody
+    0    , 1     , Azimpur , Example area in Azimpur
+    1    , 2     , Lalbagh , Some are in lalbagh
+    2    , 3     , Feni    , Sadar road, Feni
     ```
 
 * From the root folder run:
@@ -81,3 +85,12 @@ Mapping fuzzy address string to id
     ```python
     python -m address_map.search_data
     ```
+
+
+## Deployment
+* Run all the containers at once in detached mode:
+
+    ```bash
+    docker-compose up -d
+    ```
+
