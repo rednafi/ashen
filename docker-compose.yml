@@ -1,6 +1,6 @@
 version: "3"
 services:
-  redisearch: # Redis module that performs the indexing and searching
+  redisearch: # redis module that performs the indexing and searching
     container_name: redisearch
     image: redislabs/redisearch
     environment:
