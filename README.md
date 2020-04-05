@@ -1,8 +1,14 @@
+<div align="center">
+
 # ASHEN: **A**rea **S**earc**H** **En**gine
 
 *Redisearch* based cross-language fuzzy search engine
 
-![img](https://images.unsplash.com/photo-1429772011165-0c2e054367b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80)
+<a href=""><img src="https://images.unsplash.com/photo-1429772011165-0c2e054367b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" align="center"/></a>
+
+
+
+</div>
 
 ## Description
 
@@ -81,7 +87,7 @@ index, areaId, areaTile, areaBody
     {"query": "West Shaorapara,around Mirpur 10,\nShapla sharani.\nHouse no:438/3"}
     ```
 
-* Respose:
+* Response:
     ```json
     {
   "matchedArea": [
@@ -142,6 +148,7 @@ index, areaId, areaTile, areaBody
 ```
 
 ## Remarks
+
 This application is built and tested on:
 
 * Python 3.8
