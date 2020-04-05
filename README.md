@@ -1,6 +1,6 @@
 <div align="center">
 
-# ASHEN: **A**rea **S**earc**H** **En**gine
+# ASHEN: **A**rea **S**earc**H** **EN**gine
 
 *Redisearch* based cross-language fuzzy search engine
 
