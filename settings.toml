@@ -8,6 +8,6 @@ host = "10.148.0.10" #internal ip
 
 [development]
 environment = "development"
-# if you are running without gunicorn, make this false
+# if you are running without gunicorn locally, make this false
 gunicorn = true
 host = "192.168.1.102"      #internal ip

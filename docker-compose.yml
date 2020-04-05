@@ -1,6 +1,6 @@
 version: "3"
 services:
-  redisearch:
+  redisearch: # Redis module that performs the indexing and searching
     container_name: redisearch
     image: redislabs/redisearch
     environment:
@@ -9,14 +9,18 @@ services:
     ports:
       - 6379:6379
     volumes:
-    # save redisearch data to your current working directory
+      # save redisearch data to your current working directory
       - ./redisearch-data:/data
 
     command:
+      # you've to load the associated *.so for the module to work in docker
       - "--loadmodule /usr/lib/redis/modules/redisearch.so"
+
+      # redis rdb backup config.
+      # Save if 100 keys are added in every 10 seconds
       - "--save 10 100"
 
-  redisinsight:
+  redisinsight: # redis db visualization dashboard
     container_name: redis-insight
     image: redislabs/redisinsight
     ports:
@@ -24,7 +28,7 @@ services:
     volumes:
       - redisinsight:/db
 
-  app:
+  app: # flask app for performing search queries
     container_name: search-app
     build:
       context: "./"
