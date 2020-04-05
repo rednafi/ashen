@@ -20,32 +20,28 @@ def retry(func=None, exception=Exception, n_tries=5, delay=5, backoff=1, logger=
         Backoff multiplier e.g. value of 2 will double the delay, by default 1
     logger : bool, optional
         Option to log or print, by default False
-
     Returns
     -------
     typing.Callable
         Decorated callable that calls itself when exception(s) occur.
-
     Examples
     --------
     >>> import random
-
-    >>> @retry(Exception, n_tries=4)
+    >>> @retry(exception=Exception, n_tries=4)
     ... def test_random(text):
     ...    x = random.random()
     ...    if x < 0.5:
     ...        raise Exception("Fail")
     ...    else:
     ...        print("Success: ", text)
-
     >>> test_random("It works!")
     """
 
     if func is None:
         return partial(
             retry,
-            which_exception=exception,
-            try_count=n_tries,
+            exception=exception,
+            n_tries=n_tries,
             delay=delay,
             backoff=backoff,
             logger=logger,

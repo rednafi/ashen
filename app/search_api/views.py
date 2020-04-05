@@ -6,8 +6,8 @@ from . import search_api
 AUTH_KEY = "1234ABCD"
 
 
-@search_api.route("/area-search/", methods=["GET"])
-def get_main_func():
+@search_api.route("/area-search/", methods=["GET", "POST"])
+def view():
 
     # auth
     headers = request.headers
@@ -17,16 +17,24 @@ def get_main_func():
     if auth != AUTH_KEY:
         return jsonify({"error": "unauthorized"}), 200
 
-    try:
-        query = request.args["q"]
-        obj = PerformVerdict(query)
-        d = obj.verdict()
-        return jsonify(d), 200
+    content = request.get_json()
+    
+    if not list(content.keys()) == ["query"]:
+        return jsonify(
+            {
+                "error": "Query is not properly formatted.",
+                "excpectedFormat": "{'query': 'query string'}",
+            }
+        )
 
-    except KeyError:
-        d = {"mathcedArea": [], "verdictArea": None, "verdictAreaId": None}
-        return jsonify(d), 400
+    else:
+        try:
+            query = content["query"]
+            obj = PerformVerdict(query)
+            d = obj.verdict()
+            d["query"] = query
+            return jsonify(d), 200
 
-    except Exception:
-        d = {"mathcedArea": [], "verdictArea": None, "verdictAreaId": None}
-        return jsonify(d)
+        except KeyError:
+            d = {"mathcedArea": [], "verdictArea": None, "verdictAreaId": None}
+            return jsonify(d)

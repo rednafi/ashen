@@ -1,13 +1,13 @@
-[global]
-flask_config = { port = 5000 }
-
 [production]
 environment = "production"
 gunicorn = true
 host = "10.148.0.10" #internal ip
+flask_config = { port = 5000, debug = false }
 
 [development]
 environment = "development"
 # if you are running without gunicorn locally, make this false
-gunicorn = true
-host = "192.168.1.102"      #internal ip
+gunicorn = false
+host = "192.168.1.102" #internal ip
+debug = true
+flask_config = { port = 5000, debug = true }

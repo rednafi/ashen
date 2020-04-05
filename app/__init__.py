@@ -1,9 +1,13 @@
 from flask import Flask
 from flask_cors import CORS
 from .search_api import search_api
+from dynaconf import settings
+
 
 class Config:
-    pass
+    """Set Flask configuration vars."""
+
+    DEBUG = settings.FLASK_CONFIG.DEBUG
 
 
 def create_app():

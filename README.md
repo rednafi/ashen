@@ -1,7 +1,9 @@
 # Area Search Engine
+
 Cross language area search from fuzzy descriptions
 
 ## Stack
+
 * Redis
 * Redisearch
 * RedisInsight
@@ -11,6 +13,7 @@ Cross language area search from fuzzy descriptions
 
 
 ## Directory Structure
+
 ```
 .
 ├── app                       [flask-application]
@@ -42,6 +45,7 @@ Cross language area search from fuzzy descriptions
 ## Development
 
 ### Run Redisearch
+
 * Run the container via:
     `docker-compose up -d`
 
@@ -93,4 +97,3 @@ Cross language area search from fuzzy descriptions
     ```bash
     docker-compose up -d
     ```
-

@@ -8,7 +8,7 @@ from redisearch import Client, NumericField, Query, TextField
 from index.utils import retry
 
 
-@retry(Exception, try_count=5, delay=5)
+@retry(exception=Exception, n_tries=5, delay=5)
 def make_client():
     # Creating a client with a given index name
     client = Client("areaIndex", host=settings.HOST)
