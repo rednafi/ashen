@@ -1,10 +1,9 @@
 from collections import Counter
 from typing import List
 
-from redisearch import Query
-
-from index.index_data import make_client
 from app.search_api.utils import clean_term
+from index.index_data import make_client
+from redisearch import Query
 
 
 class PerformQuery:

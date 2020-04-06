@@ -1,7 +1,8 @@
+from dynaconf import settings
 from flask import Flask
 from flask_cors import CORS
+
 from .search_api import search_api
-from dynaconf import settings
 
 
 class Config:

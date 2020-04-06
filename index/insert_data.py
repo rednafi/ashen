@@ -1,7 +1,6 @@
 import pandas as pd
-from tqdm import tqdm
-
 from index.index_data import make_index
+from tqdm import tqdm
 
 
 class InsertData:

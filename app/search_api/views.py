@@ -1,6 +1,6 @@
-from flask import jsonify
-from flask import request
 from app.search_api.search_data import PerformVerdict
+from flask import jsonify, request
+
 from . import search_api
 
 AUTH_KEY = "1234ABCD"
@@ -18,7 +18,7 @@ def view():
         return jsonify({"error": "unauthorized"}), 200
 
     content = request.get_json()
-    
+
     if not list(content.keys()) == ["query"]:
         return jsonify(
             {

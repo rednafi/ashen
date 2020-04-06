@@ -1,11 +1,7 @@
-from typing import Mapping, Sequence
-
-import pandas as pd
 from dynaconf import settings
-from redis.exceptions import DataError, ResponseError
-from redisearch import Client, NumericField, Query, TextField
-
 from index.utils import retry
+from redis.exceptions import DataError, ResponseError
+from redisearch import Client, NumericField, TextField
 
 
 @retry(exception=Exception, n_tries=5, delay=5)
