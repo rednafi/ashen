@@ -17,9 +17,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST bash -c 'chmod +x /app/area-search-engine/deploy.sh && /app/area-search-engine/deploy.sh'
-            # complete and exit
-            exit'
+            ssh $SSH_USER@$SSH_HOST bash -c 'cd /app/area-search-engine/ && chmod +x deploy.sh && ./deploy.sh'
 
 workflows:
   version: 2

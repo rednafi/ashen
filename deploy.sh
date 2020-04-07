@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Screaming that I got in!
-echo "Got in, yay!!"
-
-# Going into the project folder
-cd /app/area-search-engine/
 
 # Pulling in the master repo
 git fetch --all
@@ -29,4 +24,4 @@ docker rmi $(docker images areasearchengine_app)
 docker-compose up -d
 
 # get out of the vm instance
-exit 
+exit
