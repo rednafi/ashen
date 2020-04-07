@@ -3,8 +3,6 @@ version: 2
 jobs:
   build:
     #...
-    machine:
-      enabled: true
     steps:
       - run:
           name: Build
@@ -19,6 +17,7 @@ jobs:
           command: |
             ssh $SSH_USER@$SSH_HOST
             echo "Got in!"
+            exit 
 
 workflows:
   version: 2
