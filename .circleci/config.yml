@@ -19,7 +19,9 @@ jobs:
           command: |
             ssh $SSH_USER@$SSH_HOST bash -c '\
             echo "Got In"
-            echo "say hi"
+            cd /app/area-search-engine/
+            docker-compose down
+            docker-compose up -d
             exit'
 
 workflows:
