@@ -27,6 +27,7 @@ jobs:
 
             # Pulling in the master repo
             git pull origin master
+            git checkout circleci-project-setup
 
             # Running deploy specific commands
             chmod +x ./deploy.sh
