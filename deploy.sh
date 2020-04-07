@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Screaming that I got in!
+echo "Got in, yay!!"
+
+# Going into the project folder
+cd /app/area-search-engine/
+
+# Pulling in the master repo
+git fetch --all
+git reset --hard origin/master
+
+
 # bring down the containers
 docker-compose down
 
@@ -16,3 +27,6 @@ docker rmi $(docker images areasearchengine_app)
 
 # bring up the containers again
 docker-compose up -d
+
+# get out of the vm instance
+exit 
