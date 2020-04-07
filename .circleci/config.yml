@@ -18,10 +18,21 @@ jobs:
           name: Deploy Over SSH
           command: |
             ssh $SSH_USER@$SSH_HOST bash -c '\
-            echo "Got In"
+
+            # Screaming that I got in!
+            echo "Got in, yay!!"
+
+            # Going into the project folder
             cd /app/area-search-engine/
-            docker-compose down
-            docker-compose up -d
+
+            # Pulling in the master repo
+            git pull origin master
+
+            # Running deploy specific commands
+            chmod +x ./deploy.sh
+            ./deploy.sh
+
+            # Getting out of the vm instance
             exit'
 
 workflows:
