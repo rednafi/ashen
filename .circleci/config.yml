@@ -26,7 +26,8 @@ jobs:
             cd /app/area-search-engine/
 
             # Pulling in the master repo
-            git pull origin master -f
+            git fetch --all
+            git reset --hard origin/master
 
             # Running deploy specific commands
             chmod +x ./deploy.sh
