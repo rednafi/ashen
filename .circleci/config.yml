@@ -9,7 +9,7 @@ jobs:
       - run:
           name: Build
           command: |
-            echo "Hello CI"
+            echo "You know you should write tests, right?"
   deploy:
     machine:
       enabled: true
@@ -27,8 +27,6 @@ jobs:
 
             # Pulling in the master repo
             git pull origin master
-            git fetch
-            git checkout circleci-project-setup
 
             # Running deploy specific commands
             chmod +x ./deploy.sh
@@ -47,4 +45,4 @@ workflows:
             - build # only deploy once build job has completed
           filters:
             branches:
-              only: circleci-project-setup # only deploy on the master branch
+              only: master # only deploy on the master branch
