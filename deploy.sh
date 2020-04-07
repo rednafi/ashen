@@ -1,10 +1,10 @@
 #!/bin/bash
 
+trap 'echo "# $BASH_COMMAND"' DEBUG
 
 # Pulling in the master repo
 git fetch --all
 git reset --hard origin/master
-
 
 # bring down the containers
 docker-compose down
@@ -24,4 +24,4 @@ docker rmi $(docker images areasearchengine_app)
 docker-compose up -d
 
 # get out of the vm instance
-exit
+trap - DEBUG
