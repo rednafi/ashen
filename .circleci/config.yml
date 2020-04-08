@@ -22,7 +22,6 @@ jobs:
             cd /app/area-search-engine/
 
             # Pulling in the master repo without raising merge conflict
-
             git fetch --all
             git reset --hard origin/master
 
@@ -39,7 +38,7 @@ jobs:
             # remove the image of the base app
             # this app will be rebuild
             # ignore the containers that do not need to be rebuilt
-            docker rmi $(docker images areasearchengine_app) 
+            docker rmi $(docker images areasearchengine_app)
 
             # bring up the containers again
             docker-compose up -d'
