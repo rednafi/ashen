@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST bash -c 'cd app/area-search-engine \
+            ssh $SSH_USER@$SSH_HOST bash -c 'cd /app/area-search-engine/ \
 
             # Pulling in the master repo without raising merge conflict
 
