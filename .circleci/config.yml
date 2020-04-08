@@ -21,8 +21,8 @@ jobs:
 
             # Pulling in the master repo without raising merge conflict
 
-	          git fetch --all \
-	          git reset --hard origin/master \
+            git fetch --all \
+            git reset --hard origin/master \
 
             # setting up docker
             # bring down the containers
