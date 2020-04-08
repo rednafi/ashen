@@ -17,27 +17,29 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh $SSH_USER@$SSH_HOST bash -c 'cd /app/area-search-engine/ \
+            ssh $SSH_USER@$SSH_HOST bash -c '\
+
+            cd /app/area-search-engine/
 
             # Pulling in the master repo without raising merge conflict
 
-            git fetch --all \
-            git reset --hard origin/master \
+            git fetch --all
+            git reset --hard origin/master
 
             # setting up docker
             # bring down the containers
-            docker-compose down \
+            docker-compose down
 
             # remove the containers and orphan volumes
-            docker-compose rm -f -v \
+            docker-compose rm -f -v
 
             # remove all dangling volumes
-            docker volume rm $(docker volume ls -qf dangling=true) \
+            docker volume rm $(docker volume ls -qf dangling=true)
 
             # remove the image of the base app
             # this app will be rebuild
             # ignore the containers that do not need to be rebuilt
-            docker rmi $(docker images areasearchengine_app) \
+            docker rmi $(docker images areasearchengine_app) 
 
             # bring up the containers again
             docker-compose up -d'
