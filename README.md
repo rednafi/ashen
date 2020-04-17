@@ -2,7 +2,7 @@
 
 # ASHEN: **A**rea **S**earc**H** **EN**gine
 
-*Redisearch* based cross-language fuzzy search engine
+*Redisearch* based full text fuzzy search engine
 
 <a href=""><img src="https://images.unsplash.com/photo-1429772011165-0c2e054367b8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80" align="center"/></a>
 
