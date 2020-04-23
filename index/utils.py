@@ -2,6 +2,8 @@ import logging
 import time
 from functools import partial, wraps
 
+import pandas as pd
+
 
 def retry(func=None, exception=Exception, n_tries=5, delay=5, backoff=1, logger=False):
     """Retry decorator with exponential backoff.
@@ -67,3 +69,10 @@ def retry(func=None, exception=Exception, n_tries=5, delay=5, backoff=1, logger=
         return func(*args, **kwargs)
 
     return wrapper
+
+
+def prepare_data(file_path):
+    data = pd.read_csv(file_path)
+    data = data.reset_index()
+    data.columns = ("index", "areaId", "areaTitle", "areaBody")
+    return data

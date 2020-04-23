@@ -2,8 +2,8 @@ from collections import Counter
 from typing import List
 
 from app.search_api.utils import clean_term
-from index.index_data import make_client
-from redisearch import Query
+from index.index_data import client
+from redisearch import Client, Query
 
 
 class PerformQuery:
@@ -11,7 +11,7 @@ class PerformQuery:
 
     def __init__(self, raw_search_term):
         self.raw_search_term = raw_search_term
-        self.client = make_client()
+        self.client = client
 
     def _clean_query(self):
         return clean_term(self.raw_search_term, "|", add_fuzzy=True)
@@ -95,5 +95,7 @@ class PerformVerdict(PerformQuery):
         return key_max
 
 
-# obj = PerformVerdict("sfsfdsfdsfsdf")
+# obj = PerformVerdict("motijhel")
 # a = obj.verdict()
+# print(client.__dict__)
+# print(a)

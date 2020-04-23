@@ -7,7 +7,7 @@ flask_config = { port = 5000, debug = false }
 [development]
 environment = "development"
 # if you are running without gunicorn locally, make this false
-gunicorn = true
-host = "192.168.1.102" #internal ip
+gunicorn = false
+host = "192.168.1.103" #internal ip
 debug = true
 flask_config = { port = 5000, debug = true }
