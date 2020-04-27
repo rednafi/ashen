@@ -68,15 +68,16 @@ class PerformVerdict(PerformQuery):
         result = super().query()
 
         if result:
-            verdict_area = self._calculate_verdict(result, doc_len=self.doc_len)
-            verdict_area_id = [
-                d["areaId"]
-                for d in result
-                if d["areaTitle"] == verdict_area["verdictArea"]
-            ][0]
-
+            verdict = self._calculate_verdict(result, doc_len=self.doc_len)
         else:
-            verdict_area = None
+            verdict = None
+
+        if verdict:
+            verdict_area_id = [
+                d["areaId"] for d in result if d["areaTitle"] == verdict["verdictArea"]
+            ][0]
+        else:
+            verdict = {"verdictArea": None, "verdictScore": None}
             verdict_area_id = None
 
         d = {
@@ -84,14 +85,14 @@ class PerformVerdict(PerformQuery):
                 "matchedArea": result[: self.doc_show],
                 "verdictAreaId": verdict_area_id,
             },
-            **verdict_area,
+            **verdict,
         }
 
         return d
 
     @staticmethod
     def _calculate_verdict(result: List[dict], doc_len, thresh=0.5):
-        keys = [doc["areaTitle"] for doc in result]
+        keys = (doc["areaTitle"] for doc in result)
         key_counts = Counter(keys)
 
         # key with max occurance
@@ -100,10 +101,8 @@ class PerformVerdict(PerformQuery):
 
         if score > thresh:
             return {"verdictArea": key_max, "verdictScore": score}
-        else:
-            return {"verdictArea": None, "verdictScore": score}
 
 
-# obj = PerformVerdict("Azimpur Mirpur")
+# obj = PerformVerdict("W12")
 # a = obj.verdict()
 # pprint(a)

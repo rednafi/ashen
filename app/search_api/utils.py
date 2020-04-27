@@ -30,4 +30,7 @@ def clean_term(term, join_delimiter, add_fuzzy=False):
     # join by delimiter
     term = join_delimiter.join(term)
 
-    return term
+    if term:
+        return term
+
+    return "dummy_query_string"
