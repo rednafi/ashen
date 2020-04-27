@@ -1,8 +1,13 @@
 from dynaconf import settings
-from index.utils import prepare_data, retry
-from redis.exceptions import DataError, ResponseError
-from redisearch import Client, NumericField, TextField
+from redis.exceptions import DataError
+from redis.exceptions import ResponseError
+from redisearch import Client
+from redisearch import NumericField
+from redisearch import TextField
 from tqdm import tqdm
+
+from index.utils import prepare_data
+from index.utils import retry
 
 
 @retry(exception=Exception, n_tries=5, delay=5)

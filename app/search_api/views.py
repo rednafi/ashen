@@ -1,7 +1,8 @@
-from app.search_api.search_data import PerformVerdict
-from flask import jsonify, request
+from flask import jsonify
+from flask import request
 
 from . import search_api
+from app.search_api.search_data import PerformVerdict
 
 AUTH_KEY = "1234ABCD"
 

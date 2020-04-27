@@ -1,14 +1,12 @@
-# isort
-- repo: https://github.com/pre-commit/mirrors-isort
-  rev: v4.3.21
+# .pre-commit-config.yaml
+
+
+# reorder imports
+- repo: https://github.com/asottile/reorder_python_imports
+  rev: v2.2.0
   hooks:
-    - id: isort
-      args: # arguments to configure isort
-        # making isort line length compatible with black
-        - --line_length 88
-        - --use_parentheses True
-        - --include_trailing_comma True
-        - --multi_line_output 3
+    - id: reorder-python-imports
+
 
 # black
 - repo: https://github.com/ambv/black
@@ -32,6 +30,7 @@
           dist"""
 
       language_version: python3.6
+
 
 # flake8
 - repo: https://github.com/pre-commit/pre-commit-hooks

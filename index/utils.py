@@ -1,6 +1,7 @@
 import logging
 import time
-from functools import partial, wraps
+from functools import partial
+from functools import wraps
 
 import pandas as pd
 

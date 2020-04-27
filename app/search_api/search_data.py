@@ -1,20 +1,22 @@
 from collections import Counter
+from pprint import pprint
 from typing import List
+
+from redisearch import Query
 
 from app.search_api.utils import clean_term
 from index.index_data import client
-from redisearch import Client, Query
 
 
 class PerformQuery:
     """Searching the intended term in the datbase."""
 
-    def __init__(self, raw_search_term):
-        self.raw_search_term = raw_search_term
-        self.client = client
+    def __init__(self, query_str, doc_len):
+        self.query_str = query_str
+        self.doc_len = doc_len
 
     def _clean_query(self):
-        return clean_term(self.raw_search_term, "|", add_fuzzy=True)
+        return clean_term(self.query_str, "|", add_fuzzy=True)
 
     def _prepare_query(self):
         term = self._clean_query()
@@ -24,14 +26,14 @@ class PerformQuery:
 
     def _perform_query(self):
         q = Query(self._prepare_query()).with_scores()
-        res = self.client.search(q)
+        res = client.search(q)
         return res
 
     def _format_result(self):
         res = self._perform_query()
 
         # returns generator of Document type object
-        res_gen = (doc for doc in res.docs[: self.doc_size])
+        res_gen = (doc for doc in res.docs[: self.doc_len])
 
         # making generator of dict type from generator of Document type
         res_gen = (
@@ -56,20 +58,21 @@ class PerformQuery:
 class PerformVerdict(PerformQuery):
     """Perform the final verdict on the address."""
 
-    def __init__(self, raw_search_term, doc_size=10):
-        super().__init__(raw_search_term)
-        # how many docs to do the comparison on
-        self.doc_size = doc_size
+    def __init__(self, query_str, doc_len=10, doc_show=3):
+        super().__init__(query_str, doc_len)
+        self.doc_show = doc_show
 
     def verdict(self):
         """Formatted final results."""
 
-        result = self.query()
+        result = super().query()
 
         if result:
-            verdict_area = self._calculate_verdict(result)
+            verdict_area = self._calculate_verdict(result, doc_len=self.doc_len)
             verdict_area_id = [
-                d["areaId"] for d in result if d["areaTitle"] == verdict_area
+                d["areaId"]
+                for d in result
+                if d["areaTitle"] == verdict_area["verdictArea"]
             ][0]
 
         else:
@@ -77,25 +80,30 @@ class PerformVerdict(PerformQuery):
             verdict_area_id = None
 
         d = {
-            "matchedArea": result[:3],
-            "verdictArea": verdict_area,
-            "verdictAreaId": verdict_area_id,
+            **{
+                "matchedArea": result[: self.doc_show],
+                "verdictAreaId": verdict_area_id,
+            },
+            **verdict_area,
         }
 
         return d
 
     @staticmethod
-    def _calculate_verdict(result: List[dict]):
+    def _calculate_verdict(result: List[dict], doc_len, thresh=0.5):
         keys = [doc["areaTitle"] for doc in result]
         key_counts = Counter(keys)
 
         # key with max occurance
         key_max = max(key_counts, key=key_counts.get)
+        score = key_counts[key_max] / doc_len
 
-        return key_max
+        if score > thresh:
+            return {"verdictArea": key_max, "verdictScore": score}
+        else:
+            return {"verdictArea": None, "verdictScore": score}
 
 
-# obj = PerformVerdict("motijhel")
+# obj = PerformVerdict("Azimpur Mirpur")
 # a = obj.verdict()
-# print(client.__dict__)
-# print(a)
+# pprint(a)
